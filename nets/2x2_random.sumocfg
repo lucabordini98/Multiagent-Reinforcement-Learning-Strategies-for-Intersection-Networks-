@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\lucab\PycharmProjects\Tesi\2x2net\2x2.net.xml"/>
+        <route-files value="C:\Users\lucab\PycharmProjects\Tesi\2x2net\2x2_normal_and_random.rou.xml"/>
+    </input>
+
+</configuration>

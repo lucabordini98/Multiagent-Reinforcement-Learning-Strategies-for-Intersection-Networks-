@@ -1,0 +1,53 @@
+<routes>
+    <flow id="flow_11" from="-h11" to="-h22" begin="0" end="800000" probability="0.03" departSpeed="max" departPos="base" departLane="best"/>
+    <flow id="flow_12" from="-h11" to="-h12" begin="0" end="800000" probability="0.02" departSpeed="max" departPos="base" departLane="best"/>
+
+    <flow id="flow_21" from="-h21" to="v11" begin="0" end="800000" probability="0.03" departSpeed="max" departPos="base" departLane="best"/>
+    <flow id="flow_22" from="-h21" to="-v13" begin="0" end="800000" probability="0.02" departSpeed="max" departPos="base" departLane="best"/>
+
+    <flow id="flow_32" from="v13" to="-h12" begin="0" end="800000" probability="0.03" departSpeed="max" departPos="base" departLane="best"/>
+    <flow id="flow_33" from="v13" to="h21" begin="0" end="800000" probability="0.02" departSpeed="max" departPos="base" departLane="best"/>
+
+    <flow id="flow_41" from="h22" to="h11" begin="0" end="800000" probability="0.03" departSpeed="max" departPos="base" departLane="best"/>
+    <flow id="flow_42" from="h22" to="h21" begin="0" end="800000" probability="0.02" departSpeed="max" departPos="base" departLane="best"/>
+
+    <flow id="flow_51" from="h12" to="-v13" begin="0" end="800000" probability="0.03" departSpeed="max" departPos="base" departLane="best"/>
+    <flow id="flow_52" from="h12" to="v11" begin="0" end="800000" probability="0.02" departSpeed="max" departPos="base" departLane="best"/>
+
+    <flow id="flow_61" from="-v11" to="h21" begin="0" end="800000" probability="0.03" departSpeed="max" departPos="base" departLane="best"/>
+    <flow id="flow_62" from="-v11" to="h11" begin="0" end="800000" probability="0.02" departSpeed="max" departPos="base" departLane="best"/>
+
+    <!--
+
+    <flow id="flow_11b" from="-h11" to="v11" begin="300000" end="600000" probability="0.05" departSpeed="max" departPos="base" departLane="best"/>
+
+
+    <flow id="flow_21b" from="-h21" to="-v13" begin="300000" end="600000" probability="0.05" departSpeed="max" departPos="base" departLane="best"/>
+    <flow id="flow_32b" from="v13" to="h11" begin="300000" end="600000" probability="0.05" departSpeed="max" departPos="base" departLane="best"/>
+
+    <flow id="flow_41b" from="h22" to="h21" begin="300000" end="600000" probability="0.05" departSpeed="max" departPos="base" departLane="best"/>
+
+
+    <flow id="flow_52b" from="h12" to="-h22" begin="300000" end="600000" probability="0.05" departSpeed="max" departPos="base" departLane="best"/>
+
+
+    <flow id="flow_62b" from="-v11" to="-v13" begin="300000" end="600000" probability="0.05" departSpeed="max" departPos="base" departLane="best"/>
+
+
+
+
+    <flow id="flow_12c" from="-h11" to="-v13" begin="600000" end="800000" probability="0.05" departSpeed="max" departPos="base" departLane="best"/>
+
+    <flow id="flow_21c" from="-h21" to="v11" begin="600000" end="800000" probability="0.05" departSpeed="max" departPos="base" departLane="best"/>
+    <flow id="flow_32c" from="v13" to="-h22" begin="600000" end="800000" probability="0.05" departSpeed="max" departPos="base" departLane="best"/>
+
+    <flow id="flow_41c" from="h22" to="h11" begin="600000" end="800000" probability="0.05" departSpeed="max" departPos="base" departLane="best"/>
+
+
+    <flow id="flow_52c" from="h12" to="-v13" begin="600000" end="800000" probability="0.05" departSpeed="max" departPos="base" departLane="best"/>
+
+    <flow id="flow_62c" from="-v11" to="h21" begin="600000" end="800000" probability="0.05" departSpeed="max" departPos="base" departLane="best"/>
+
+    -->
+
+</routes>
