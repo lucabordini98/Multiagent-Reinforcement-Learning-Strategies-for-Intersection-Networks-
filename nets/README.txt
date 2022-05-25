@@ -1,4 +1,5 @@
 i file .sumocfg sono le simulazioni apribili direttamente con sumo
+ 
 
 -2x2.net.xml: contiene la rete semplice usata per i test
 -2x2.rou.xml: generazione di flussi 'deterministici' di veicoli

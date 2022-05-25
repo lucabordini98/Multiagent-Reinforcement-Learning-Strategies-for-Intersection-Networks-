@@ -1,5 +1,6 @@
 Per lo 'switch' tra le funzioni di reward ho utilizzato quelle presenti nella classe 'TrafficLights'
 
+
 -std_rnd_std: alterna 2 periodi di flussi di veicoli deterministici con uno stocastico
 -800k_aplha_025: 800k episodi di training in cui alpha è impostato a 0.25 (invece di 0.1)
 -800k_gamma_075: 800k episodi di training in cui gamma è impostato a 0.75 (invece di 0.99)
