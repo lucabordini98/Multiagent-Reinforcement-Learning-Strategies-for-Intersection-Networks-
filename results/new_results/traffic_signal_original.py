@@ -39,10 +39,14 @@ class TrafficSignal:
         self.last_measure = 0.0
         self.last_reward = None
         self.sumo = sumo
+        self.global_last_measure=0.0
 
         self.last_avg_speed=0
 
         self.build_phases()
+
+        '''lista di tutte le lanes presenti nella rete'''
+        self.all_lanes=self.get_all_lanes()
 
         self.lanes = list(dict.fromkeys(self.sumo.trafficlight.getControlledLanes(self.id)))  # Remove duplicates and keep order
         self.out_lanes = [link[0][1] for link in self.sumo.trafficlight.getControlledLinks(self.id) if link]
@@ -56,6 +60,15 @@ class TrafficSignal:
             *(spaces.Discrete(10) for _ in range(2*len(self.lanes)))      # Density and stopped-density for each lane
         ))
         self.action_space = spaces.Discrete(self.num_green_phases)
+
+    def get_all_lanes(self):
+        lanes=[]
+        for id in self.sumo.trafficlight.getIDList():
+            for lane in self.sumo.trafficlight.getControlledLanes(id):
+                if lane not in lanes:lanes.append(lane)
+        return lanes
+
+
 
     def build_phases(self):
         phases = self.sumo.trafficlight.getAllProgramLogics(self.id)[0].phases
@@ -132,7 +145,8 @@ class TrafficSignal:
     def compute_reward(self,d):
         if d==0:
             '''self.last_reward = self._waiting_time_reward() # self._average_speed_reward()'''
-            self.last_reward=self._waiting_time_reward()
+            self.last_reward=self.custom_reward2()
+
         else:
             self.last_reward = self._queue_reward()
         return self.last_reward
@@ -140,18 +154,18 @@ class TrafficSignal:
 
     def custom_reward(self):
 
-        speed=self._waiting_time_reward()*0.85
-        queue=self._queue_reward()*0.15
+        speed=self._avg_speed_2()*0.50
+        queue=self._queue_reward()*0.50
         reward=speed+queue
         return reward
 
     def custom_reward2(self):
 
         speed=self._avg_speed_2()*0.15
-        wait=self._waiting_time_reward()*0.70
+        wait=self._waiting_time_reward()*0.60
         queue = self._queue_reward() * 0.15
+        #global_wait=self._global_waiting_time_reward()*0.3
         reward=speed+wait+queue
-        print(reward)
         return reward
 
 
@@ -192,6 +206,14 @@ class TrafficSignal:
             reward = 1.0/ts_wait
         return reward
 
+
+    def _global_waiting_time_reward(self):
+        ts_wait=sum(self.get_waiting_time_all_lane())/100.0
+        reward = self.global_last_measure - ts_wait
+        self.global_last_measure = ts_wait
+        return reward
+
+
     def _waiting_time_reward3(self):
         ts_wait = sum(self.get_waiting_time_per_lane())
         reward = -ts_wait
@@ -200,6 +222,8 @@ class TrafficSignal:
 
     def get_waiting_time_per_lane(self):
         wait_time_per_lane = []
+
+
         for lane in self.lanes:
             veh_list = self.sumo.lane.getLastStepVehicleIDs(lane)
             wait_time = 0.0
@@ -213,6 +237,24 @@ class TrafficSignal:
                 wait_time += self.env.vehicles[veh][veh_lane]
             wait_time_per_lane.append(wait_time)
         return wait_time_per_lane
+
+    def get_waiting_time_all_lane(self):
+        wait_time_per_lane=[]
+        for lane in self.all_lanes:
+            veh_list = self.sumo.lane.getLastStepVehicleIDs(lane)
+            wait_time = 0.0
+            for veh in veh_list:
+                veh_lane = self.sumo.vehicle.getLaneID(veh)
+                acc = self.sumo.vehicle.getAccumulatedWaitingTime(veh)
+                if veh not in self.env.vehicles:
+                    self.env.vehicles[veh] = {veh_lane: acc}
+                else:
+                    self.env.vehicles[veh][veh_lane] = acc - sum(
+                        [self.env.vehicles[veh][lane] for lane in self.env.vehicles[veh].keys() if lane != veh_lane])
+                wait_time += self.env.vehicles[veh][veh_lane]
+            wait_time_per_lane.append(wait_time)
+        return wait_time_per_lane
+
 
 
 
